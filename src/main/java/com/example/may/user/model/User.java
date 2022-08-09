@@ -1,7 +1,6 @@
-package com.example.may.model;
+package com.example.may.user.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.example.may.cat.model.Cat;
 import lombok.Data;
 
 import javax.persistence.CascadeType;

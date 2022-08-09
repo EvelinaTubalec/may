@@ -1,17 +1,18 @@
-package com.example.may.model.dto;
+package com.example.may.user.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.UUID;
 
 /**
  * @author Evelina Tubalets
  */
 @Data
-public class UserDto {
+public class UserResponseDto {
+
+    private UUID id;
 
     private String firstName;
 
@@ -23,6 +24,4 @@ public class UserDto {
     private LocalDate dateOfBirth;
 
     private Double coins;
-
-    private List<UUID> catIds;
 }

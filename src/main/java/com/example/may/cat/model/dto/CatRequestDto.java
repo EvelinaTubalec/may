@@ -1,4 +1,4 @@
-package com.example.may.model.dto;
+package com.example.may.cat.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDate;
  * @author Evelina Tubalets
  */
 @Data
-public class CatDto {
+public class CatRequestDto {
 
     private String alias;
 
