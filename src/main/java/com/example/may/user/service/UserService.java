@@ -1,5 +1,6 @@
 package com.example.may.user.service;
 
+import com.example.may.car.model.Car;
 import com.example.may.cat.model.Cat;
 import com.example.may.user.model.User;
 import com.example.may.user.repository.UserRepository;
@@ -22,6 +23,14 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<Cat> getUserCats(final UUID id) {
+        return userRepository.getCatsByUserId(id);
+    }
+
+    public List<Car> getUserCars(final UUID id) {
+        return userRepository.getUserCars(id);
+    }
+
     public User save(final User user) {
         return userRepository.save(user);
     }
@@ -30,6 +39,10 @@ public class UserService {
         final User userFromDb = userRepository.findById(id).orElseThrow(RuntimeException::new);
         updateFields(user, userFromDb);
         return userRepository.save(userFromDb);
+    }
+
+    public void deleteById(final UUID ownerId) {
+        userRepository.deleteById(ownerId);
     }
 
     private void updateFields(final User user, final User userFromDb) {
@@ -46,9 +59,5 @@ public class UserService {
         final List<Cat> cats = userFromDb.getCats();
         cats.removeAll(cats);
         cats.addAll(newCats);
-    }
-
-    public void deleteById(final UUID ownerId) {
-        userRepository.deleteById(ownerId);
     }
 }

@@ -5,6 +5,9 @@ import com.example.may.cat.model.converter.CatConverter;
 import com.example.may.cat.model.dto.CatRequestDto;
 import com.example.may.cat.model.dto.CatResponseDto;
 import com.example.may.cat.service.CatService;
+import com.example.may.user.model.User;
+import com.example.may.user.model.converter.UserConverter;
+import com.example.may.user.model.dto.UserResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,13 +31,21 @@ public class CatController {
 
     private final CatService catService;
     private final CatConverter catConverter;
+    private final UserConverter userConverter;
 
-    @GetMapping()
-    private List<Cat> getAll() {
-        return catService.getAll();
+    @GetMapping
+    private List<CatResponseDto> getAll() {
+        final List<Cat> cats = catService.getAll();
+        return catConverter.toDtos(cats);
     }
 
-    @PostMapping()
+    @GetMapping("/{id}/users")
+    private List<UserResponseDto> getCatUsers(@PathVariable UUID id) {
+        final List<User> catUsers = catService.getCatUsers(id);
+        return userConverter.toDtos(catUsers);
+    }
+
+    @PostMapping
     private CatResponseDto save(@RequestBody CatRequestDto catRequestDto) {
         final Cat cat = catConverter.toModel(catRequestDto);
         final Cat savedCat = catService.save(cat);

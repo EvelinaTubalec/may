@@ -47,6 +47,12 @@ public class UserConverter {
         return user;
     }
 
+    public List<UserResponseDto> toDtos(final List<User> users) {
+        return users.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
+    }
+
     public UserResponseDto toDto(final User user) {
         final UUID id = user.getId();
         final String firstName = user.getFirstName();

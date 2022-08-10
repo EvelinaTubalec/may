@@ -1,6 +1,8 @@
 package com.example.may.user.model;
 
+import com.example.may.car.model.Car;
 import com.example.may.cat.model.Cat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -13,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,7 +27,7 @@ import java.util.UUID;
  */
 @Entity
 @Data
-@Table(name = "owners")
+@Table(name = "user_info")
 public class User {
 
     @Id
@@ -46,10 +49,14 @@ public class User {
     @Column
     private Double coins;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(
-            name = "owner_cat",
+            name = "user_info_cat",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "cat_id")})
     private List<Cat> cats = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Car> cars = new ArrayList<>();
 }

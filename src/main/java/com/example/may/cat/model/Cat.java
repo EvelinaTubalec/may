@@ -34,5 +34,5 @@ public class Cat {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "cats")
-    private List<User> owners = new ArrayList<>();
+    private List<User> users = new ArrayList<>();
 }

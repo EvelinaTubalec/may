@@ -3,7 +3,6 @@ package com.example.may.cat.model.converter;
 import com.example.may.cat.model.Cat;
 import com.example.may.cat.model.dto.CatRequestDto;
 import com.example.may.cat.model.dto.CatResponseDto;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -15,7 +14,6 @@ import java.util.stream.Collectors;
  * @author Evelina Tubalets
  */
 @Component
-@AllArgsConstructor
 public class CatConverter {
 
     public List<Cat> toModels(final List<CatRequestDto> catsDto) {
@@ -32,6 +30,12 @@ public class CatConverter {
         cat.setAlias(alias);
         cat.setDateOfBirth(dateOfBirth);
         return cat;
+    }
+
+    public List<CatResponseDto> toDtos(final List<Cat> cats) {
+        return cats.stream()
+                .map(this::toDto)
+                .collect(Collectors.toList());
     }
 
     public CatResponseDto toDto(final Cat cat) {
