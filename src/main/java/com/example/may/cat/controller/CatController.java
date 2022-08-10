@@ -11,6 +11,7 @@ import com.example.may.user.model.dto.UserResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -52,10 +53,24 @@ public class CatController {
         return catConverter.toDto(savedCat);
     }
 
+    @PostMapping("/batch")
+    private List<CatResponseDto> batchInsert(@RequestBody List<CatRequestDto> catRequestDto) {
+        final List<Cat> cats = catConverter.toModels(catRequestDto);
+        final List<Cat> savedCat = catService.batchInsert(cats);
+        return catConverter.toDtos(savedCat);
+    }
+
     @PutMapping("/{id}")
     private CatResponseDto update(@PathVariable UUID id, @RequestBody CatRequestDto catRequestDto) {
         final Cat cat = catConverter.toModel(catRequestDto);
         final Cat updatedCat = catService.update(id, cat);
+        return catConverter.toDto(updatedCat);
+    }
+
+    @PatchMapping("/{id}")
+    private CatResponseDto partialUpdate(@PathVariable UUID id, @RequestBody CatRequestDto catRequestDto) {
+        final Cat cat = catConverter.toModel(catRequestDto);
+        final Cat updatedCat = catService.partialUpdate(id, cat);
         return catConverter.toDto(updatedCat);
     }
 

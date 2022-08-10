@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+import static java.util.Objects.nonNull;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
  * @author Evelina Tubalets
  */
@@ -30,10 +33,21 @@ public class CatService {
         return catRepository.save(cat);
     }
 
+    public List<Cat> batchInsert(final List<Cat> cats) {
+        return catRepository.saveAll(cats);
+    }
+
     public Cat update(final UUID id, final Cat cat) {
         final Cat catFromDb = catRepository.findById(id).orElseThrow(RuntimeException::new);
         updateFields(cat, catFromDb);
         return catRepository.save(catFromDb);
+    }
+
+    public Cat partialUpdate(final UUID id, final Cat cat) {
+        final Cat catFromDb = catRepository.findById(id).orElseThrow(RuntimeException::new);
+        return patchUpdateFieldsIfNeeded(cat, catFromDb)
+                ? catRepository.save(catFromDb)
+                : catFromDb;
     }
 
     public void deleteById(final UUID catId) {
@@ -43,5 +57,18 @@ public class CatService {
     private void updateFields(final Cat cat, final Cat catFromDb) {
         catFromDb.setAlias(cat.getAlias());
         catFromDb.setDateOfBirth(cat.getDateOfBirth());
+    }
+
+    private boolean patchUpdateFieldsIfNeeded(final Cat cat, final Cat catFromDb) {
+        boolean isNeedToUpdate = false;
+        if (isNotBlank(cat.getAlias())) {
+            catFromDb.setAlias(cat.getAlias());
+            isNeedToUpdate = true;
+        }
+        if (nonNull(cat.getDateOfBirth())) {
+            catFromDb.setDateOfBirth(cat.getDateOfBirth());
+            isNeedToUpdate = true;
+        }
+        return isNeedToUpdate;
     }
 }
