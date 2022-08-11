@@ -27,7 +27,7 @@ public class Cat {
     private UUID id;
 
     @Column
-    private String alias;
+    private String name;
 
     @Column
     private LocalDate dateOfBirth;

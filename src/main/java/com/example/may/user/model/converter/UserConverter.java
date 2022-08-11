@@ -6,7 +6,9 @@ import com.example.may.user.model.User;
 import com.example.may.user.model.dto.UserRequestDto;
 import com.example.may.user.model.dto.UserResponseDto;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -35,7 +37,11 @@ public class UserConverter {
         final LocalDate dateOfBirth = userRequestDto.getDateOfBirth();
         final Double coins = userRequestDto.getCoins();
         final List<UUID> catIds = userRequestDto.getCatIds();
+
         final List<Cat> userCats = catRepository.findByIds(catIds);
+        if (userCats.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect catIds");
+        }
 
         final User user = new User();
         user.setFirstName(firstName);

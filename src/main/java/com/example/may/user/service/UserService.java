@@ -5,7 +5,9 @@ import com.example.may.cat.model.Cat;
 import com.example.may.user.model.User;
 import com.example.may.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,13 +38,14 @@ public class UserService {
     }
 
     public User update(final UUID id, final User user) {
-        final User userFromDb = userRepository.findById(id).orElseThrow(RuntimeException::new);
+        final User userFromDb = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect userId"));
         updateFields(user, userFromDb);
         return userRepository.save(userFromDb);
     }
 
-    public void deleteById(final UUID ownerId) {
-        userRepository.deleteById(ownerId);
+    public void deleteById(final UUID userId) {
+        userRepository.deleteById(userId);
     }
 
     private void updateFields(final User user, final User userFromDb) {

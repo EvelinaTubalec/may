@@ -4,7 +4,9 @@ import com.example.may.car.model.Car;
 import com.example.may.car.repository.CarRepository;
 import com.example.may.user.model.User;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,7 +33,8 @@ public class CarService {
     }
 
     public Car update(final UUID id, final Car car) {
-        final Car carFromDb = carRepository.findById(id).orElseThrow(RuntimeException::new);
+        final Car carFromDb = carRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect carId"));
         updateFields(car, carFromDb);
         return carRepository.save(carFromDb);
     }

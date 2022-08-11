@@ -6,7 +6,9 @@ import com.example.may.car.model.dto.CarResponseDto;
 import com.example.may.user.model.User;
 import com.example.may.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +34,8 @@ public class CarConverter {
         final String model = carRequestDto.getModel();
         final Integer maxSpeed = carRequestDto.getMaxSpeed();
         final UUID userId = carRequestDto.getUserId();
-        final User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
+        final User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect userId"));
 
         final Car car = new Car();
         car.setManufacturer(manufacturer);

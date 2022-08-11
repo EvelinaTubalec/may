@@ -23,11 +23,11 @@ public class CatConverter {
     }
 
     public Cat toModel(final CatRequestDto catRequestDto) {
-        final String alias = catRequestDto.getAlias();
+        final String name = catRequestDto.getAlias();
         final LocalDate dateOfBirth = catRequestDto.getDateOfBirth();
 
         final Cat cat = new Cat();
-        cat.setAlias(alias);
+        cat.setName(name);
         cat.setDateOfBirth(dateOfBirth);
         return cat;
     }
@@ -40,12 +40,12 @@ public class CatConverter {
 
     public CatResponseDto toDto(final Cat cat) {
         final UUID id = cat.getId();
-        final String alias = cat.getAlias();
+        final String name = cat.getName();
         final LocalDate dateOfBirth = cat.getDateOfBirth();
 
         final CatResponseDto catResponseDto = new CatResponseDto();
         catResponseDto.setId(id);
-        catResponseDto.setAlias(alias);
+        catResponseDto.setAlias(name);
         catResponseDto.setDateOfBirth(dateOfBirth);
         return catResponseDto;
     }

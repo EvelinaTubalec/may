@@ -4,7 +4,9 @@ import com.example.may.cat.model.Cat;
 import com.example.may.cat.repository.CatRepository;
 import com.example.may.user.model.User;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.UUID;
@@ -38,13 +40,15 @@ public class CatService {
     }
 
     public Cat update(final UUID id, final Cat cat) {
-        final Cat catFromDb = catRepository.findById(id).orElseThrow(RuntimeException::new);
+        final Cat catFromDb = catRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect catId"));
         updateFields(cat, catFromDb);
         return catRepository.save(catFromDb);
     }
 
     public Cat partialUpdate(final UUID id, final Cat cat) {
-        final Cat catFromDb = catRepository.findById(id).orElseThrow(RuntimeException::new);
+        final Cat catFromDb = catRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect catId"));
         return patchUpdateFieldsIfNeeded(cat, catFromDb)
                 ? catRepository.save(catFromDb)
                 : catFromDb;
@@ -55,14 +59,14 @@ public class CatService {
     }
 
     private void updateFields(final Cat cat, final Cat catFromDb) {
-        catFromDb.setAlias(cat.getAlias());
+        catFromDb.setName(cat.getName());
         catFromDb.setDateOfBirth(cat.getDateOfBirth());
     }
 
     private boolean patchUpdateFieldsIfNeeded(final Cat cat, final Cat catFromDb) {
         boolean isNeedToUpdate = false;
-        if (isNotBlank(cat.getAlias())) {
-            catFromDb.setAlias(cat.getAlias());
+        if (isNotBlank(cat.getName())) {
+            catFromDb.setName(cat.getName());
             isNeedToUpdate = true;
         }
         if (nonNull(cat.getDateOfBirth())) {

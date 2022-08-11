@@ -16,5 +16,13 @@ spring:
           order_inserts: true
         generate_statistics: true
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 server:
   port: 8082
+  error:
+    include-message: always
