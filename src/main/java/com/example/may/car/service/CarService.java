@@ -33,14 +33,18 @@ public class CarService {
     }
 
     public Car update(final UUID id, final Car car) {
-        final Car carFromDb = carRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect carId"));
+        final Car carFromDb = getCarFromDb(id);
         updateFields(car, carFromDb);
         return carRepository.save(carFromDb);
     }
 
     public void deleteById(final UUID carId) {
         carRepository.deleteById(carId);
+    }
+
+    private Car getCarFromDb(final UUID id) {
+        return carRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect carId"));
     }
 
     private void updateFields(final Car car, final Car carFromDb) {

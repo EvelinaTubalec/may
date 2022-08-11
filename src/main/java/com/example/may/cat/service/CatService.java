@@ -40,16 +40,14 @@ public class CatService {
     }
 
     public Cat update(final UUID id, final Cat cat) {
-        final Cat catFromDb = catRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect catId"));
+        final Cat catFromDb = getCatFromDb(id);
         updateFields(cat, catFromDb);
         return catRepository.save(catFromDb);
     }
 
     public Cat partialUpdate(final UUID id, final Cat cat) {
-        final Cat catFromDb = catRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect catId"));
-        return patchUpdateFieldsIfNeeded(cat, catFromDb)
+        final Cat catFromDb = getCatFromDb(id);
+        return partialUpdateFieldsIfNeeded(cat, catFromDb)
                 ? catRepository.save(catFromDb)
                 : catFromDb;
     }
@@ -58,12 +56,17 @@ public class CatService {
         catRepository.deleteById(catId);
     }
 
+    private Cat getCatFromDb(final UUID id) {
+        return catRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect catId"));
+    }
+
     private void updateFields(final Cat cat, final Cat catFromDb) {
         catFromDb.setName(cat.getName());
         catFromDb.setDateOfBirth(cat.getDateOfBirth());
     }
 
-    private boolean patchUpdateFieldsIfNeeded(final Cat cat, final Cat catFromDb) {
+    private boolean partialUpdateFieldsIfNeeded(final Cat cat, final Cat catFromDb) {
         boolean isNeedToUpdate = false;
         if (isNotBlank(cat.getName())) {
             catFromDb.setName(cat.getName());

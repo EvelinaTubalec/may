@@ -38,14 +38,18 @@ public class UserService {
     }
 
     public User update(final UUID id, final User user) {
-        final User userFromDb = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect userId"));
+        final User userFromDb = getUserFromDb(id);
         updateFields(user, userFromDb);
         return userRepository.save(userFromDb);
     }
 
     public void deleteById(final UUID userId) {
         userRepository.deleteById(userId);
+    }
+
+    private User getUserFromDb(final UUID id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect userId"));
     }
 
     private void updateFields(final User user, final User userFromDb) {
