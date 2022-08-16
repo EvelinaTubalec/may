@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Data
 public class CatRequestDto {
 
-    private String alias;
+    private String name;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfBirth;

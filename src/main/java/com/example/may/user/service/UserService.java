@@ -47,7 +47,7 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    private User getUserFromDb(final UUID id) {
+    public User getUserFromDb(final UUID id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Incorrect userId"));
     }

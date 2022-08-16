@@ -14,7 +14,7 @@ public class CatResponseDto {
 
     private UUID id;
 
-    private String alias;
+    private String name;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dateOfBirth;
