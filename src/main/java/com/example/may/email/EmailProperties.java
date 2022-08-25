@@ -1,4 +1,4 @@
-package com.example.may.core.config;
+package com.example.may.email;
 
 import lombok.Data;
 

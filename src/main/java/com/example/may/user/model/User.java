@@ -2,8 +2,9 @@ package com.example.may.user.model;
 
 import com.example.may.car.model.Car;
 import com.example.may.cat.model.Cat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -26,7 +27,9 @@ import java.util.UUID;
  * @author Evelina Tubalets
  */
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "user_info")
 public class User {
 
@@ -49,8 +52,7 @@ public class User {
     @Column
     private Double coins;
 
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     @JoinTable(
             name = "user_info_cat",
             joinColumns = {@JoinColumn(name = "user_id")},

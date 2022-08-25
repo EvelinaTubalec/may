@@ -9,27 +9,22 @@ spring:
   jpa:
     properties:
       hibernate:
-        ddl-auto: create
-        show-sql: true
         jdbc:
           batch_size: 5
           order_inserts: true
-        generate_statistics: true
-
+    open-in-view: false
+    show-sql: true
   mail:
     host: smtp.mailtrap.io
     username: aab0cce8fb3fdf
     password: 6f07061cb72448
     port: 587
-
-
 management:
   endpoints:
     web:
       exposure:
         include: "*"
-
 server:
-  port: 8082
+  port: 8087
   error:
     include-message: always

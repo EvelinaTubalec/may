@@ -10,6 +10,9 @@ import com.example.may.user.model.User;
 import com.example.may.user.model.converter.UserConverter;
 import com.example.may.user.model.dto.UserRequestDto;
 import com.example.may.user.model.dto.UserResponseDto;
+import com.example.may.user.model.dto.UserTransferMoneyRequestDto;
+import com.example.may.user.model.dto.UserTransferMoneyResponseDto;
+import com.example.may.user.model.dto.UserWithCatsAndCarsResponseDto;
 import com.example.may.user.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,6 +46,12 @@ public class UserController {
         return userConverter.toDtos(users);
     }
 
+    @GetMapping("/{id}")
+    private UserWithCatsAndCarsResponseDto findById(@PathVariable UUID id) {
+        final User userById = userService.findById(id);
+        return userConverter.toUserWithCatAndCarDto(userById);
+    }
+
     @GetMapping("/{id}/cats")
     private List<CatResponseDto> getUserCats(@PathVariable UUID id) {
         final List<Cat> userCats = userService.getUserCats(id);
@@ -59,18 +68,27 @@ public class UserController {
     private UserResponseDto save(@RequestBody UserRequestDto userRequestDto) {
         final User user = userConverter.toModel(userRequestDto);
         final User savedUser = userService.save(user);
-        return userConverter.toDto(savedUser);
+        return userConverter.toUserDto(savedUser);
     }
 
     @PutMapping("/{id}")
     private UserResponseDto update(@PathVariable UUID id, @RequestBody UserRequestDto userRequestDto) {
         final User user = userConverter.toModel(userRequestDto);
         final User updatedUser = userService.update(id, user);
-        return userConverter.toDto(updatedUser);
+        return userConverter.toUserDto(updatedUser);
     }
 
     @DeleteMapping("/{id}")
     private void delete(@PathVariable UUID id) {
         userService.deleteById(id);
+    }
+
+    @PostMapping("/money")
+    private UserTransferMoneyResponseDto transferMoney(@RequestBody UserTransferMoneyRequestDto requestDto) {
+        final UUID translatorId = requestDto.getTranslatorId();
+        final UUID receiverId = requestDto.getReceiverId();
+        final Double coins = requestDto.getCoins();
+        final User users = userService.transferMoney(translatorId, receiverId, coins);
+        return userConverter.toUserTransferMoneyDto(users);
     }
 }

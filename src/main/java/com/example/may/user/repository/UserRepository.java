@@ -18,6 +18,5 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     List<Cat> getCatsByUserId(final UUID userId);
 
     @Query("select car from Car car where car.user.id in :userId")
-    List<Car> getUserCars(final UUID userId);
-
+    List<Car> getCarsByUserId(final UUID userId);
 }

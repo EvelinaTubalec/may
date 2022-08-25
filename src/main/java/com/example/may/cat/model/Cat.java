@@ -4,6 +4,7 @@ import com.example.may.user.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,6 +34,6 @@ public class Cat {
     private LocalDate dateOfBirth;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "cats")
+    @ManyToMany(mappedBy = "cats", cascade = CascadeType.MERGE)
     private List<User> users = new ArrayList<>();
 }

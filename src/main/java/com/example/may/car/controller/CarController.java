@@ -42,7 +42,7 @@ public class CarController {
     @GetMapping("/{id}/user")
     private UserResponseDto getCarsUser(@PathVariable UUID id) {
         final User carsUser = carService.getCarsUser(id);
-        return userConverter.toDto(carsUser);
+        return userConverter.toUserDto(carsUser);
     }
 
     @PostMapping

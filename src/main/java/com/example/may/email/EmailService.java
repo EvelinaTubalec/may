@@ -1,9 +1,8 @@
 package com.example.may.email;
 
-import com.example.may.core.config.EmailProperties;
 import com.example.may.user.model.User;
 import com.example.may.user.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,14 +18,17 @@ import static java.time.LocalDate.now;
  * @author Evelina Tubalets
  */
 @Service
-@AllArgsConstructor
 public class EmailService {
 
     private final static String emailFrom = "645652fb23-e8813b@inbox.mailtrap.io";
-    @Value("${spring.mail.host}")
-    private final String host;
 
+    @Value("${spring.mail.host}")
+    private String host;
+
+    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
     private EmailProperties properties;
 
     public void sendCongratulationEmail() {
