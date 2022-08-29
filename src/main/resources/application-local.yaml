@@ -1,0 +1,27 @@
+server:
+  port: 8087
+  error:
+    include-message: always
+
+spring:
+  datasource:
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: ev
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 5
+          order_inserts: true
+    show-sql: true
+
+mail:
+    host: smtp.mailtrap.io
+    username: aab0cce8fb3fdf
+    password: 6f07061cb72448
+    port: 587
+    emailFrom: 645652fb23-e8813b@inbox.mailtrap.io

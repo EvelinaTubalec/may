@@ -2,6 +2,7 @@ package com.example.may.core.exception;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -14,7 +15,7 @@ public class ExceptionResponse {
 
     private LocalDateTime timestamp;
 
-    private Integer status;
+    private HttpStatus status;
 
     private String message;
 }

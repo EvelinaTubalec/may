@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet author="evelina (generated)" id="1661439670017-1">
         <createSequence sequenceName="hibernate_sequence"/>
@@ -56,12 +58,21 @@
         <addPrimaryKey columnNames="id" constraintName="user_info_pkey" tableName="user_info"/>
     </changeSet>
     <changeSet author="evelina (generated)" id="1661439670017-9">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_info_cat" constraintName="fk638850bamtrq5tam7ips9l33v" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user_info"/>
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_info_cat"
+                                 constraintName="fk638850bamtrq5tam7ips9l33v" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="user_info"/>
     </changeSet>
     <changeSet author="evelina (generated)" id="1661439670017-10">
-        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="car" constraintName="fkevh3tf1g93f6uwsosg5j4jucd" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="user_info"/>
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="car"
+                                 constraintName="fkevh3tf1g93f6uwsosg5j4jucd" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="user_info"/>
     </changeSet>
     <changeSet author="evelina (generated)" id="1661439670017-11">
-        <addForeignKeyConstraint baseColumnNames="cat_id" baseTableName="user_info_cat" constraintName="fkp6hlvtd9rsfca3jcldov7bcnw" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="cat"/>
+        <addForeignKeyConstraint baseColumnNames="cat_id" baseTableName="user_info_cat"
+                                 constraintName="fkp6hlvtd9rsfca3jcldov7bcnw" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="id" referencedTableName="cat"/>
     </changeSet>
 </databaseChangeLog>
