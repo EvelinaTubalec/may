@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    hikari:
+      connectionTimeout: 15000
+      maximumPoolSize: 8
+    url: ${vcap.services.may-user-provider.credentials.db.url}
+    username: ${vcap.services.may-user-provider.credentials.db.username}
+    password: ${vcap.services.may-user-provider.credentials.db.password}
+    driverClassName: com.sap.db.jdbc.Driver
+
+destination-service:
+  url: ${vcap.services.destination-service.credentials.uri}
+  credentials:
+    clientId: ${vcap.services.destination-service.credentials.clientid}
+    clientSecret: ${vcap.services.destination-service.credentials.clientsecret}
+    baseTokenUrl: ${vcap.services.destination-service.credentials.url}

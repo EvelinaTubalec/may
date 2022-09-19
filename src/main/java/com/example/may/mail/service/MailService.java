@@ -1,9 +1,9 @@
-package com.example.may.email.service;
+package com.example.may.mail.service;
 
-import com.example.may.email.config.model.EmailProperties;
+import com.example.may.mail.config.model.MailProperties;
 import com.example.may.user.entity.User;
 import com.example.may.user.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.AllArgsConstructor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -19,38 +19,31 @@ import static java.time.LocalDate.now;
  * @author Evelina Tubalets
  */
 @Service
-public class EmailService {
+@AllArgsConstructor
+public class MailService {
 
-    private final String host;
     private final UserRepository userRepository;
-    private final EmailProperties properties;
-
-    public EmailService(
-            @Value("${spring.mail.host}") final String host,
-            final UserRepository userRepository,
-            final EmailProperties properties) {
-        this.host = host;
-        this.userRepository = userRepository;
-        this.properties = properties;
-    }
+    private final MailProperties properties;
+    private final MailPropertyReceiver propertyReceiver;
 
     public void sendCongratulationEmail() {
         final List<User> birthdayUsers = getBirthdayUserEmails();
         birthdayUsers.forEach(this::createCongratulationMessageAndSend);
     }
 
+    public void sendTestEmail() {
+        final SimpleMailMessage testMessage = createTestMessage();
+        getMailSender().send(testMessage);
+    }
+
     private List<User> getBirthdayUserEmails() {
-        return userRepository.findAll()
-                .stream()
-                .filter(this::isBirthdayToday)
-                .collect(Collectors.toList());
+        return userRepository.findAll().stream().filter(this::isBirthdayToday).collect(Collectors.toList());
     }
 
     private boolean isBirthdayToday(final User user) {
         final int presentDay = now().getDayOfMonth();
         final int presentMonth = now().getMonthValue();
-        return user.getDateOfBirth().getDayOfMonth() == presentDay
-                && user.getDateOfBirth().getMonthValue() == presentMonth;
+        return user.getDateOfBirth().getDayOfMonth() == presentDay && user.getDateOfBirth().getMonthValue() == presentMonth;
     }
 
     private void createCongratulationMessageAndSend(final User user) {
@@ -67,9 +60,19 @@ public class EmailService {
         return message;
     }
 
+    private SimpleMailMessage createTestMessage() {
+        final SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo("toEmail");
+        message.setSubject("Test Message");
+        message.setText("Hello!");
+        message.setFrom(properties.getEmailFrom());
+        return message;
+    }
+
     private JavaMailSender getMailSender() {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
-        mailSender.setHost(host);
+        final MailProperties properties = propertyReceiver.getEmailPropertiesFromDestinationService();
+        final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost(properties.getHost());
         mailSender.setPort(properties.getPort());
         mailSender.setUsername(properties.getUsername());
         mailSender.setPassword(properties.getPassword());

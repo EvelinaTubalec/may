@@ -8,3 +8,12 @@ management:
       exposure:
         include: "*"
 
+destination-service:
+  url: https://destination-configuration.cfapps.us10.hana.ondemand.com
+  credentials:
+    clientId:
+    clientSecret:
+    baseTokenUrl: https://223632dftrial.authentication.us10.hana.ondemand.com
+
+mail:
+  emailFrom: 645652fb23-e8813b@inbox.mailtrap.io

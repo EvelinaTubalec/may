@@ -1,7 +1,7 @@
-package com.example.may.email.config.model;
+package com.example.may.mail.config.model;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,8 +9,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "mail")
-public class EmailProperties {
+public class MailProperties {
 
     private String host;
 
@@ -20,5 +19,6 @@ public class EmailProperties {
 
     private String password;
 
+    @Value("${mail.emailFrom}")
     private String emailFrom;
 }

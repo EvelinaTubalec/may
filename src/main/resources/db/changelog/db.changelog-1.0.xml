@@ -4,22 +4,22 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <changeSet author="evelina (generated)" id="1661439670017-1">
-        <createSequence sequenceName="hibernate_sequence"/>
+        <createSequence sequenceName="hibernate_sequence1"/>
     </changeSet>
     <changeSet author="evelina (generated)" id="1661439670017-2">
         <createTable tableName="car">
-            <column name="id" type="UUID">
+            <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="manufacturer" type="VARCHAR(255)"/>
             <column name="max_speed" type="INT"/>
             <column name="model" type="VARCHAR(255)"/>
-            <column name="user_id" type="UUID"/>
+            <column name="user_id" type="VARCHAR(36)"/>
         </createTable>
     </changeSet>
     <changeSet author="evelina (generated)" id="1661439670017-3">
         <createTable tableName="cat">
-            <column name="id" type="UUID">
+            <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
@@ -28,10 +28,10 @@
     </changeSet>
     <changeSet author="evelina (generated)" id="1661439670017-4">
         <createTable tableName="user_info">
-            <column name="id" type="UUID">
+            <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="coins" type="FLOAT8"/>
+            <column name="coins" type="DOUBLE"/>
             <column name="date_of_birth" type="date"/>
             <column name="email" type="VARCHAR(255)"/>
             <column name="first_name" type="VARCHAR(255)"/>
@@ -40,10 +40,10 @@
     </changeSet>
     <changeSet author="evelina (generated)" id="1661439670017-5">
         <createTable tableName="user_info_cat">
-            <column name="user_id" type="UUID">
+            <column name="user_id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="cat_id" type="UUID">
+            <column name="cat_id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

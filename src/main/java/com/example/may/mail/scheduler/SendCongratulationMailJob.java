@@ -1,6 +1,6 @@
-package com.example.may.email.scheduler;
+package com.example.may.mail.scheduler;
 
-import com.example.may.email.service.EmailService;
+import com.example.may.mail.service.MailService;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -10,12 +10,12 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @AllArgsConstructor
-public class SendCongratulationEmailJob {
+public class SendCongratulationMailJob {
 
-    private final EmailService emailService;
+    private final MailService mailService;
 
     @Scheduled(cron = "0 0 0 * * *")
     private void send() {
-        emailService.sendCongratulationEmail();
+        mailService.sendCongratulationEmail();
     }
 }
