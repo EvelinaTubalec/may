@@ -1,9 +1,9 @@
-package com.example.may.core.constants;
+package com.example.may.core.ouath.constant;
 
 /**
  * @author Evelina Tubalets
  */
-public enum GlobalConstant {
+public enum OAuth2Constants {
 
     HEADER_NAME_AUTHORIZATION("Authorization"),
     BEARER_AUTHORIZATION_TYPE("Bearer"),
@@ -15,7 +15,7 @@ public enum GlobalConstant {
 
     final String value;
 
-    GlobalConstant(String value) {
+    OAuth2Constants(String value) {
         this.value = value;
     }
 

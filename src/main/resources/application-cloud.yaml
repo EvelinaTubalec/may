@@ -10,7 +10,6 @@ spring:
 
 destination-service:
   url: ${vcap.services.destination-service.credentials.uri}
-  credentials:
-    clientId: ${vcap.services.destination-service.credentials.clientid}
-    clientSecret: ${vcap.services.destination-service.credentials.clientsecret}
-    baseTokenUrl: ${vcap.services.destination-service.credentials.url}
+  clientId: ${vcap.services.destination-service.credentials.clientid}
+  clientSecret: ${vcap.services.destination-service.credentials.clientsecret}
+  baseTokenUrl: ${vcap.services.destination-service.credentials.url}

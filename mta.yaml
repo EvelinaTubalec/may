@@ -24,6 +24,7 @@ modules:
       - name: container
       - name: may-user-provider
       - name: destination-service
+      - name: xsuaa
 
 resources:
   - name: container
@@ -31,4 +32,6 @@ resources:
   - name: may-user-provider
     type: org.cloudfoundry.existing-service
   - name: destination-service
+    type: org.cloudfoundry.existing-service
+  - name: xsuaa
     type: org.cloudfoundry.existing-service

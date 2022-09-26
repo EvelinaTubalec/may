@@ -1,6 +1,6 @@
-package com.example.may.mail.controller;
+package com.example.may.email.controller;
 
-import com.example.may.mail.service.MailService;
+import com.example.may.email.service.EmailService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/emails")
 @AllArgsConstructor
-public class MailController {
+public class EmailController {
 
-    private final MailService mailService;
+    private final EmailService emailService;
 
     @GetMapping("/actions/send-message-test")
     private void sendTestEmail() {
-        mailService.sendTestEmail();
+        emailService.sendTestEmail();
     }
 
     @GetMapping("/actions/send-message")
     private void sendEmail() {
-        mailService.sendCongratulationEmail();
+        emailService.sendCongratulationEmail();
     }
 }

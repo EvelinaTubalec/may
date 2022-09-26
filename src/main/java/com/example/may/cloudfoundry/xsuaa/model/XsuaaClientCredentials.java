@@ -1,4 +1,4 @@
-package com.example.may.mail.config.model;
+package com.example.may.cloudfoundry.xsuaa.model;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties("destination-service")
-public class MailDestinationTokenProperties {
+@ConfigurationProperties(prefix = "destination-service")
+public class XsuaaClientCredentials {
 
     private String baseTokenUrl;
 

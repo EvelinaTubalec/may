@@ -1,9 +1,9 @@
-package com.example.may.mail.config.model;
+package com.example.may.email.config.model;
 
 /**
  * @author Evelina Tubalets
  */
-public enum MailConstant {
+public enum EmailConstant {
 
     MAIL_PORT_RESPONSE_FIELD("mail.smtp.port"),
     MAIL_USER_RESPONSE_FIELD("mail.user"),
@@ -13,7 +13,7 @@ public enum MailConstant {
 
     final String value;
 
-    MailConstant(String value) {
+    EmailConstant(String value) {
         this.value = value;
     }
 

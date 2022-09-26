@@ -1,6 +1,7 @@
-package com.example.may.mail.service;
+package com.example.may.email.service;
 
-import com.example.may.mail.config.model.MailProperties;
+import com.example.may.cloudfoundry.destination.service.DestinationService;
+import com.example.may.email.config.model.EmailProperties;
 import com.example.may.user.entity.User;
 import com.example.may.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -20,11 +21,11 @@ import static java.time.LocalDate.now;
  */
 @Service
 @AllArgsConstructor
-public class MailService {
+public class EmailService {
 
     private final UserRepository userRepository;
-    private final MailProperties properties;
-    private final MailPropertyReceiver propertyReceiver;
+    private final EmailProperties properties;
+    private final DestinationService propertyReceiver;
 
     public void sendCongratulationEmail() {
         final List<User> birthdayUsers = getBirthdayUserEmails();
@@ -70,7 +71,7 @@ public class MailService {
     }
 
     private JavaMailSender getMailSender() {
-        final MailProperties properties = propertyReceiver.getEmailPropertiesFromDestinationService();
+        final EmailProperties properties = propertyReceiver.getEmailProperties();
         final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(properties.getHost());
         mailSender.setPort(properties.getPort());

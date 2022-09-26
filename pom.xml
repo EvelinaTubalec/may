@@ -36,6 +36,8 @@
         </spring-cloud-cloudfoundry-hana-service-connector.version>
         <java-cfenv-boot.version>2.1.0.RELEASE</java-cfenv-boot.version>
         <json.version>20220320</json.version>
+        <spring-retry.version>1.2.5.RELEASE</spring-retry.version>
+        <sap.cloud.security.version>2.13.3</sap.cloud.security.version>
     </properties>
 
     <dependencies>
@@ -56,6 +58,23 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.security.xsuaa</groupId>
+            <artifactId>xsuaa-spring-boot-starter</artifactId>
+            <version>${sap.cloud.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
@@ -63,6 +82,11 @@
             <groupId>org.liquibase.ext</groupId>
             <artifactId>liquibase-hanadb</artifactId>
             <version>${liquibase-hanadb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>${spring-retry.version}</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>

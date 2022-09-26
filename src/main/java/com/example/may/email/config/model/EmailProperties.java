@@ -1,4 +1,4 @@
-package com.example.may.mail.config.model;
+package com.example.may.email.config.model;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-public class MailProperties {
+public class EmailProperties {
 
     private String host;
 
