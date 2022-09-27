@@ -27,8 +27,8 @@ import java.util.UUID;
  * @author Evelina Tubalets
  */
 @RestController
-@RequestMapping("/cats")
 @AllArgsConstructor
+@RequestMapping("/cats")
 public class CatController {
 
     private final CatService catService;
