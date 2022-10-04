@@ -10,12 +10,9 @@ management:
 
 destination-service:
   url: https://destination-configuration.cfapps.us10.hana.ondemand.com
-  clientId: sb-clone3b2ac7034a214fffa05e3fc733fb2c9d!b103098|destination-xsappname!b62
-  clientSecret: a7216af1-6f8c-4fde-a7c8-11af6b018209$XJF-gDao6cPPYE-Zz62R9iH4JiKUNfo8CJJwpi2CrnE=
-  baseTokenUrl: https://223632dftrial.authentication.us10.hana.ondemand.com
-
-mail:
-  emailFrom: 645652fb23-e8813b@inbox.mailtrap.io
+  clientId: sb-clone08299f5638d74d998f1f8fc16912c5d5!b106953|destination-xsappname!b62
+  clientSecret: 1f041671-2530-48b9-95a1-68ff07a71633$SCnu_W3MpFSOTxHACMOkmoPvfiHKcotMMaDIUKwqQvo=
+  baseTokenUrl: https://3bb1a5e2trial.authentication.us10.hana.ondemand.com
 
 cache:
   properties:

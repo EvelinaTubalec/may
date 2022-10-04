@@ -1,8 +1,13 @@
 package com.example.may.email.config.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author Evelina Tubalets
  */
+@Getter
+@AllArgsConstructor
 public enum EmailConstant {
 
     MAIL_PORT_RESPONSE_FIELD("mail.smtp.port"),
@@ -12,12 +17,4 @@ public enum EmailConstant {
     MAIL_FROM_RESPONSE_FIELD("mail.smtp.from");
 
     final String value;
-
-    EmailConstant(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }

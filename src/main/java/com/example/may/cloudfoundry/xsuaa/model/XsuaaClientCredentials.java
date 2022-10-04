@@ -1,7 +1,6 @@
 package com.example.may.cloudfoundry.xsuaa.model;
 
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,8 +8,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "destination-service")
-public class XsuaaClientCredentials {
+public abstract class XsuaaClientCredentials {
 
     private String baseTokenUrl;
 

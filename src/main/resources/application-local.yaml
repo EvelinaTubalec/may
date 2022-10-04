@@ -8,9 +8,9 @@ spring:
     hikari:
       connection-timeout: 20000
       maximum-pool-size: 5
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: ev
-    password: postgres
+    url: jdbc:postgresql://localhost:5434/pgdb
+    username: user
+    password: password
   jpa:
     properties:
       hibernate:

@@ -21,15 +21,15 @@ modules:
         - mvn clean package
       build-result: 'target/*.jar'
     requires:
-      - name: container
-      - name: may-user-provider
+      - name: db
+      - name: may-user-provided
       - name: destination-service
       - name: xsuaa
 
 resources:
-  - name: container
+  - name: db
     type: org.cloudfoundry.existing-service
-  - name: may-user-provider
+  - name: may-user-provided
     type: org.cloudfoundry.existing-service
   - name: destination-service
     type: org.cloudfoundry.existing-service

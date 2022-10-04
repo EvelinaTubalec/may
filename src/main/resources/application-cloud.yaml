@@ -3,9 +3,9 @@ spring:
     hikari:
       connectionTimeout: 15000
       maximumPoolSize: 8
-    url: ${vcap.services.may-user-provider.credentials.db.url}
-    username: ${vcap.services.may-user-provider.credentials.db.username}
-    password: ${vcap.services.may-user-provider.credentials.db.password}
+    url: ${vcap.services.may-user-provided.credentials.db.url}
+    username: ${vcap.services.may-user-provided.credentials.db.username}
+    password: ${vcap.services.may-user-provided.credentials.db.password}
     driverClassName: com.sap.db.jdbc.Driver
 
 destination-service:

@@ -4,7 +4,7 @@ import com.sap.cloud.security.xsuaa.XsuaaServiceConfiguration;
 import com.sap.cloud.security.xsuaa.extractor.IasXsuaaExchangeBroker;
 import com.sap.cloud.security.xsuaa.token.TokenAuthenticationConverter;
 import com.sap.cloud.security.xsuaa.tokenflows.XsuaaTokenFlows;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -19,13 +19,11 @@ import org.springframework.security.web.SecurityFilterChain;
  */
 @Profile("cloud")
 @Configuration
+@AllArgsConstructor
 public class CloudSecurityConfiguration {
 
-    @Autowired
-    private XsuaaServiceConfiguration xsuaaServiceConfiguration;
-
-    @Autowired
-    private XsuaaTokenFlows xsuaaTokenFlows;
+    private final XsuaaServiceConfiguration xsuaaServiceConfiguration;
+    private final XsuaaTokenFlows xsuaaTokenFlows;
 
     @Bean
     public SecurityFilterChain defaultFilterChain(HttpSecurity http) throws Exception {

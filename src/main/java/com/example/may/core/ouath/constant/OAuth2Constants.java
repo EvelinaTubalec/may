@@ -1,25 +1,22 @@
 package com.example.may.core.ouath.constant;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * @author Evelina Tubalets
  */
+@Getter
+@AllArgsConstructor
 public enum OAuth2Constants {
 
     HEADER_NAME_AUTHORIZATION("Authorization"),
     BEARER_AUTHORIZATION_TYPE("Bearer"),
-    CLIENT_ID_REQUEST_FIELD("client_id"),
-    CLIENT_SECRET_REQUEST_FIELD("client_secret"),
-    GRANT_TYPE_REQUEST_FIELD("grant_type"),
-    ACCESS_TOKEN_RESPONSE_FIELD("access_token"),
-    DESTINATION_CONFIGURATION_RESPONSE_FIELD("destinationConfiguration");
+    CLIENT_ID_JSON_FIELD("client_id"),
+    CLIENT_SECRET_JSON_FIELD("client_secret"),
+    GRANT_TYPE_JSON_FIELD("grant_type"),
+    ACCESS_TOKEN_JSON_FIELD("access_token");
 
     final String value;
-
-    OAuth2Constants(String value) {
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
 }
+

@@ -18,7 +18,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class Animal {
+public abstract class Animal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

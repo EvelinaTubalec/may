@@ -24,7 +24,8 @@ public class CacheConfig {
     public static final String DEFAULT_CACHE_MANAGER_NAME = "defaultCacheManager";
 
     @Bean
-    public Caffeine<Object, Object> defaultCaffeineConfig(final CacheProperties cacheProperties) {
+    public Caffeine<Object, Object> defaultCaffeineConfig(
+            @Qualifier("defaultCacheProperties") final CacheProperties cacheProperties) {
         final int expiresAfter = cacheProperties.getExpiresAfter();
         final TimeUnit timeUnit = cacheProperties.getTimeUnit();
         return Caffeine.newBuilder().expireAfterWrite(expiresAfter, timeUnit);
@@ -32,14 +33,14 @@ public class CacheConfig {
 
     @Bean
     @Primary
-    public CacheManager defaultCacheManager(@Qualifier("defaultCaffeineConfig") final Caffeine caffeine) {
+    public CacheManager defaultCacheManager(@Qualifier("defaultCaffeineConfig") final Caffeine<Object, Object> caffeine) {
         CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager();
         caffeineCacheManager.setCaffeine(caffeine);
         return caffeineCacheManager;
     }
 
     @Bean
-    public CacheProperties cacheProperties(
+    public CacheProperties defaultCacheProperties(
             @Value("${cache.properties.expires-after}") final int expiresAfter,
             @Value("${cache.properties.time-unit}") final String timeUnit) {
         final TimeUnit unit = TimeUnit.valueOf(timeUnit);

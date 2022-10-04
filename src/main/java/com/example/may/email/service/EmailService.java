@@ -23,9 +23,11 @@ import static java.time.LocalDate.now;
 @AllArgsConstructor
 public class EmailService {
 
+    public static final String MAIL_DESTINATION_PATH = "/destination-configuration/v1/destinations/mail-destination";
+
     private final UserRepository userRepository;
     private final EmailProperties properties;
-    private final DestinationService propertyReceiver;
+    private final DestinationService destinationService;
 
     public void sendCongratulationEmail() {
         final List<User> birthdayUsers = getBirthdayUserEmails();
@@ -34,7 +36,8 @@ public class EmailService {
 
     public void sendTestEmail() {
         final SimpleMailMessage testMessage = createTestMessage();
-        getMailSender().send(testMessage);
+        final JavaMailSender mailSender = getMailSender();
+        mailSender.send(testMessage);
     }
 
     private List<User> getBirthdayUserEmails() {
@@ -71,12 +74,16 @@ public class EmailService {
     }
 
     private JavaMailSender getMailSender() {
-        final EmailProperties properties = propertyReceiver.getEmailProperties();
+        final EmailProperties properties = getEmailProperties();
         final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
         mailSender.setHost(properties.getHost());
         mailSender.setPort(properties.getPort());
         mailSender.setUsername(properties.getUsername());
         mailSender.setPassword(properties.getPassword());
         return mailSender;
+    }
+
+    private EmailProperties getEmailProperties() {
+        return destinationService.getProperties(EmailProperties.class, MAIL_DESTINATION_PATH);
     }
 }
