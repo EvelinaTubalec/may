@@ -10,8 +10,8 @@ management:
 
 destination-service:
   url: https://destination-configuration.cfapps.us10.hana.ondemand.com
-  clientId: sb-clone08299f5638d74d998f1f8fc16912c5d5!b106953|destination-xsappname!b62
-  clientSecret: 1f041671-2530-48b9-95a1-68ff07a71633$SCnu_W3MpFSOTxHACMOkmoPvfiHKcotMMaDIUKwqQvo=
+  clientId:
+  clientSecret: 
   baseTokenUrl: https://3bb1a5e2trial.authentication.us10.hana.ondemand.com
 
 cache:
