@@ -87,8 +87,12 @@ public class EmailService {
     }
 
     private EmailProperties getEmailProperties() {
-        final Destination destination = destinationService.getByName(MAIL_DESTINATION_NAME);
-        final Map<String, String> properties = destination.getDestinationConfiguration().getProperties();
+        final Map<String, String> properties = getPropertiesFromDestinationService();
         return JsonConverter.fromMapToModel(EmailProperties.class, properties);
+    }
+
+    private Map<String, String> getPropertiesFromDestinationService() {
+        final Destination destination = destinationService.getByName(MAIL_DESTINATION_NAME);
+        return destination.getDestinationConfiguration().getProperties();
     }
 }
