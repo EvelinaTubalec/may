@@ -3,73 +3,73 @@
                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
-    <changeSet author="evelina (generated)" id="1661439670017-1">
-        <createSequence sequenceName="hibernate_sequence"/>
+    <changeSet author="evelina" id="1661439670017-1">
+        <createSequence sequenceName="hibernate_sequence1"/>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-2">
+    <changeSet author="evelina" id="1661439670017-2">
         <createTable tableName="car">
-            <column name="id" type="UUID">
+            <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="manufacturer" type="VARCHAR(255)"/>
             <column name="max_speed" type="INT"/>
             <column name="model" type="VARCHAR(255)"/>
-            <column name="user_id" type="UUID"/>
+            <column name="user_id" type="VARCHAR(36)"/>
         </createTable>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-3">
+    <changeSet author="evelina" id="1661439670017-3">
         <createTable tableName="cat">
-            <column name="id" type="UUID">
+            <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
             <column name="name" type="VARCHAR(255)"/>
             <column name="date_of_birth" type="date"/>
         </createTable>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-4">
+    <changeSet author="evelina" id="1661439670017-4">
         <createTable tableName="user_info">
-            <column name="id" type="UUID">
+            <column name="id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="coins" type="FLOAT8"/>
+            <column name="coins" type="DOUBLE"/>
             <column name="date_of_birth" type="date"/>
             <column name="email" type="VARCHAR(255)"/>
             <column name="first_name" type="VARCHAR(255)"/>
             <column name="last_name" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-5">
+    <changeSet author="evelina" id="1661439670017-5">
         <createTable tableName="user_info_cat">
-            <column name="user_id" type="UUID">
+            <column name="user_id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
-            <column name="cat_id" type="UUID">
+            <column name="cat_id" type="VARCHAR(36)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-6">
+    <changeSet author="evelina" id="1661439670017-6">
         <addPrimaryKey columnNames="id" constraintName="car_pkey" tableName="car"/>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-7">
+    <changeSet author="evelina" id="1661439670017-7">
         <addPrimaryKey columnNames="id" constraintName="cat_pkey" tableName="cat"/>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-8">
+    <changeSet author="evelina" id="1661439670017-8">
         <addPrimaryKey columnNames="id" constraintName="user_info_pkey" tableName="user_info"/>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-9">
+    <changeSet author="evelina" id="1661439670017-9">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_info_cat"
                                  constraintName="fk638850bamtrq5tam7ips9l33v" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="user_info"/>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-10">
+    <changeSet author="evelina" id="1661439670017-10">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="car"
                                  constraintName="fkevh3tf1g93f6uwsosg5j4jucd" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
                                  referencedColumnNames="id" referencedTableName="user_info"/>
     </changeSet>
-    <changeSet author="evelina (generated)" id="1661439670017-11">
+    <changeSet author="evelina" id="1661439670017-11">
         <addForeignKeyConstraint baseColumnNames="cat_id" baseTableName="user_info_cat"
                                  constraintName="fkp6hlvtd9rsfca3jcldov7bcnw" deferrable="false"
                                  initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"

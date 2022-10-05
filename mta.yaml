@@ -1,0 +1,37 @@
+ID: may
+_schema-version: '3.1'
+version: 0.0.1
+
+modules:
+  - name: may
+    type: java
+    path: .
+    parameters:
+      memory: 1024M
+      disk-quota: 512M
+      buildpacks:
+        - https://github.com/cloudfoundry/java-buildpack.git#v4.23
+    properties:
+      SPRING_PROFILES_ACTIVE: cloud
+      JBP_CONFIG_COMPONENTS: '{jres: ["JavaBuildpack::Jre::SapMachineJRE"]}'
+      JBP_CONFIG_SAP_MACHINE_JRE: '{ jre: { version: 11.+ } }'
+    build-parameters:
+      builder: custom
+      commands:
+        - mvn clean package
+      build-result: 'target/*.jar'
+    requires:
+      - name: db
+      - name: may-user-provided
+      - name: destination-service
+      - name: xsuaa
+
+resources:
+  - name: db
+    type: org.cloudfoundry.existing-service
+  - name: may-user-provided
+    type: org.cloudfoundry.existing-service
+  - name: destination-service
+    type: org.cloudfoundry.existing-service
+  - name: xsuaa
+    type: org.cloudfoundry.existing-service

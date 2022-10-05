@@ -8,3 +8,7 @@ management:
       exposure:
         include: "*"
 
+cache:
+  properties:
+    expires-after: 1
+    time-unit: DAYS

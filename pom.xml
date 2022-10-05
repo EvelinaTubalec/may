@@ -26,6 +26,17 @@
         <spring-boot-starter-data-jpa.version>2.2.6.RELEASE</spring-boot-starter-data-jpa.version>
         <spring-boot-starter-mail.version>2.5.6</spring-boot-starter-mail.version>
         <liquibase-core.version>4.8.0</liquibase-core.version>
+        <h2.version>2.1.214</h2.version>
+        <ngdbc.version>2.13.9</ngdbc.version>
+        <liquibase-hanadb.version>4.14.0</liquibase-hanadb.version>
+        <spring-cloud-spring-service-connector.version>${spring-cloud-cloudfoundry-connector.version}</spring-cloud-spring-service-connector.version>
+        <spring-cloud-cloudfoundry-connector.version>2.0.9.RELEASE</spring-cloud-cloudfoundry-connector.version>
+        <scp-cf.version>3.74.0</scp-cf.version>
+        <spring-cloud-cloudfoundry-hana-service-connector.version>1.0.4.RELEASE
+        </spring-cloud-cloudfoundry-hana-service-connector.version>
+        <java-cfenv-boot.version>2.1.0.RELEASE</java-cfenv-boot.version>
+        <spring-retry.version>1.2.5.RELEASE</spring-retry.version>
+        <sap.cloud.security.version>2.13.3</sap.cloud.security.version>
     </properties>
 
     <dependencies>
@@ -46,12 +57,44 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.security.xsuaa</groupId>
+            <artifactId>xsuaa-spring-boot-starter</artifactId>
+            <version>${sap.cloud.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.liquibase.ext</groupId>
+            <artifactId>liquibase-hanadb</artifactId>
+            <version>${liquibase-hanadb.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>${spring-retry.version}</version>
+        </dependency>
+        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -62,6 +105,22 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.sap.cloud.db.jdbc</groupId>
+            <artifactId>ngdbc</artifactId>
+            <version>${ngdbc.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-spring-service-connector</artifactId>
+            <version>${spring-cloud-spring-service-connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sap.hana.cloud</groupId>
+            <artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
+            <version>${spring-cloud-cloudfoundry-hana-service-connector.version}</version>
+        </dependency>
+
 
         <!-- TESTS -->
         <dependency>
