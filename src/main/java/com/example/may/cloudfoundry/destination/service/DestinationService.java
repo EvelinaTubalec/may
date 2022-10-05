@@ -48,7 +48,7 @@ public class DestinationService {
         try {
             final String accessToken = destinationXsuaaTokenService.getToken();
             final ResponseEntity<String> response = buildRequestAndGetResponse(accessToken, destinationName);
-            return getPropertiesFromResponse(response);
+            return convertResponse(response);
         } catch (Unauthorized ex) {
             destinationXsuaaTokenService.refreshToken();
             throw ex;
@@ -107,7 +107,7 @@ public class DestinationService {
      * @param response from destination service.
      * @return entity with properties.
      */
-    private Destination getPropertiesFromResponse(final ResponseEntity<String> response) {
+    private Destination convertResponse(final ResponseEntity<String> response) {
         final String responseBody = response.getBody();
         return JsonConverter.fromJsonString(Destination.class, responseBody);
     }

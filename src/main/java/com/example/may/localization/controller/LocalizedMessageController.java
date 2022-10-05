@@ -16,7 +16,7 @@ public class LocalizedMessageController {
 
     private final LocalizedMessageService messageService;
 
-    @GetMapping()
+    @GetMapping
     public String getMessage() {
         return messageService.getMessage();
     }

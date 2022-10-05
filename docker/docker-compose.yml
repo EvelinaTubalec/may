@@ -6,7 +6,7 @@ services:
     container_name: postgresdb
     restart: always
     env_file:
-      - ../database.env # configure postgres
+      - database.env # configure postgres
     ports:
       # <Port exposed> : < Postgres Port running inside container>
       - 5434:5432

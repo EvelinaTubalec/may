@@ -1,13 +1,15 @@
 package com.example.may.core.ouath.constant;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import static lombok.AccessLevel.PRIVATE;
 
 /**
  * @author Evelina Tubalets
  */
 @Getter
-@AllArgsConstructor
+@NoArgsConstructor(access = PRIVATE)
 public class OAuth2Constants {
 
     public static final String HEADER_NAME_AUTHORIZATION = "Authorization";
