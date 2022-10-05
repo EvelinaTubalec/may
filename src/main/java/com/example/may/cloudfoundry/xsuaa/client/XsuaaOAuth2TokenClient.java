@@ -1,6 +1,7 @@
 package com.example.may.cloudfoundry.xsuaa.client;
 
 import com.example.may.cloudfoundry.xsuaa.model.XsuaaClientCredentials;
+import com.example.may.core.web.converter.JsonConverter;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -12,7 +13,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import static com.example.may.core.mapper.JsonConverter.getValue;
 import static com.example.may.core.ouath.constant.OAuth2Constants.ACCESS_TOKEN_JSON_FIELD;
 import static com.example.may.core.ouath.constant.OAuth2Constants.CLIENT_ID_JSON_FIELD;
 import static com.example.may.core.ouath.constant.OAuth2Constants.CLIENT_SECRET_JSON_FIELD;
@@ -45,8 +45,8 @@ public class XsuaaOAuth2TokenClient {
      */
     public String getAccessToken(final XsuaaClientCredentials properties) {
         log.info("token");
-        final HttpEntity<MultiValueMap<String, String>> request = createRequestForGettingToken(properties);
-        final ResponseEntity<String> response = getResponseForTokenRequest(request, properties);
+        final HttpEntity<MultiValueMap<String, String>> request = buildRequest(properties);
+        final ResponseEntity<String> response = sendRequest(request, properties);
         return getTokenFromResponse(response);
     }
 
@@ -56,11 +56,11 @@ public class XsuaaOAuth2TokenClient {
      * @param properties which include client credentials.
      * @return request as HttpEntity.
      */
-    private HttpEntity<MultiValueMap<String, String>> createRequestForGettingToken(final XsuaaClientCredentials properties) {
+    private HttpEntity<MultiValueMap<String, String>> buildRequest(final XsuaaClientCredentials properties) {
         final MultiValueMap<String, String> requestBody = new LinkedMultiValueMap<>();
-        requestBody.add(CLIENT_ID_JSON_FIELD.getValue(), properties.getClientId());
-        requestBody.add(CLIENT_SECRET_JSON_FIELD.getValue(), properties.getClientSecret());
-        requestBody.add(GRANT_TYPE_JSON_FIELD.getValue(), CLIENT_CREDENTIALS_GRANT_TYPE);
+        requestBody.add(CLIENT_ID_JSON_FIELD, properties.getClientId());
+        requestBody.add(CLIENT_SECRET_JSON_FIELD, properties.getClientSecret());
+        requestBody.add(GRANT_TYPE_JSON_FIELD, CLIENT_CREDENTIALS_GRANT_TYPE);
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -75,8 +75,8 @@ public class XsuaaOAuth2TokenClient {
      * @param properties which include client credentials.
      * @return response as ResponseEntity.
      */
-    private ResponseEntity<String> getResponseForTokenRequest(final HttpEntity<MultiValueMap<String, String>> request,
-                                                              final XsuaaClientCredentials properties) {
+    private ResponseEntity<String> sendRequest(final HttpEntity<MultiValueMap<String, String>> request,
+                                               final XsuaaClientCredentials properties) {
         final String tokenUrl = properties.getBaseTokenUrl() + TOKEN_PATH;
         return restTemplate.postForEntity(tokenUrl, request, String.class);
     }
@@ -89,6 +89,6 @@ public class XsuaaOAuth2TokenClient {
      */
     private String getTokenFromResponse(final ResponseEntity<String> response) {
         final String responseBody = response.getBody();
-        return getValue(responseBody, ACCESS_TOKEN_JSON_FIELD.getValue());
+        return JsonConverter.getValueFromJson(responseBody, ACCESS_TOKEN_JSON_FIELD);
     }
 }

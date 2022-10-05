@@ -1,6 +1,8 @@
 package com.example.may.email.service;
 
+import com.example.may.cloudfoundry.destination.model.Destination;
 import com.example.may.cloudfoundry.destination.service.DestinationService;
+import com.example.may.core.web.converter.JsonConverter;
 import com.example.may.email.config.model.EmailProperties;
 import com.example.may.user.entity.User;
 import com.example.may.user.repository.UserRepository;
@@ -11,6 +13,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.lang.String.format;
@@ -23,7 +26,7 @@ import static java.time.LocalDate.now;
 @AllArgsConstructor
 public class EmailService {
 
-    public static final String MAIL_DESTINATION_PATH = "/destination-configuration/v1/destinations/mail-destination";
+    public static final String MAIL_DESTINATION_NAME = "mail-destination";
 
     private final UserRepository userRepository;
     private final EmailProperties properties;
@@ -84,6 +87,8 @@ public class EmailService {
     }
 
     private EmailProperties getEmailProperties() {
-        return destinationService.getProperties(EmailProperties.class, MAIL_DESTINATION_PATH);
+        final Destination destination = destinationService.getByName(MAIL_DESTINATION_NAME);
+        final Map<String, String> properties = destination.getDestinationConfiguration().getProperties();
+        return JsonConverter.fromMapToModel(EmailProperties.class, properties);
     }
 }

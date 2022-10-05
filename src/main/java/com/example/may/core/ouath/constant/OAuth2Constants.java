@@ -8,15 +8,13 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-public enum OAuth2Constants {
+public class OAuth2Constants {
 
-    HEADER_NAME_AUTHORIZATION("Authorization"),
-    BEARER_AUTHORIZATION_TYPE("Bearer"),
-    CLIENT_ID_JSON_FIELD("client_id"),
-    CLIENT_SECRET_JSON_FIELD("client_secret"),
-    GRANT_TYPE_JSON_FIELD("grant_type"),
-    ACCESS_TOKEN_JSON_FIELD("access_token");
-
-    final String value;
+    public static final String HEADER_NAME_AUTHORIZATION = "Authorization";
+    public static final String BEARER_AUTHORIZATION_TYPE = "Bearer";
+    public static final String CLIENT_ID_JSON_FIELD = "client_id";
+    public static final String CLIENT_SECRET_JSON_FIELD = "client_secret";
+    public static final String GRANT_TYPE_JSON_FIELD = "grant_type";
+    public static final String ACCESS_TOKEN_JSON_FIELD = "access_token";
 }
 

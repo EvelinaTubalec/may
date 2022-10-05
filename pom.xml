@@ -35,7 +35,6 @@
         <spring-cloud-cloudfoundry-hana-service-connector.version>1.0.4.RELEASE
         </spring-cloud-cloudfoundry-hana-service-connector.version>
         <java-cfenv-boot.version>2.1.0.RELEASE</java-cfenv-boot.version>
-        <json.version>20220320</json.version>
         <spring-retry.version>1.2.5.RELEASE</spring-retry.version>
         <sap.cloud.security.version>2.13.3</sap.cloud.security.version>
     </properties>
@@ -120,11 +119,6 @@
             <groupId>com.sap.hana.cloud</groupId>
             <artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
             <version>${spring-cloud-cloudfoundry-hana-service-connector.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>${json.version}</version>
         </dependency>
 
 

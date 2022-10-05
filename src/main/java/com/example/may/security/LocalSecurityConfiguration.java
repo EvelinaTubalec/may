@@ -13,7 +13,7 @@ import org.springframework.security.web.SecurityFilterChain;
 /**
  * @author Evelina Tubalets
  */
-@Profile("local")
+@Profile({"default", "local"})
 @Configuration
 public class LocalSecurityConfiguration {
 

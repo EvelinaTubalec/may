@@ -8,12 +8,6 @@ management:
       exposure:
         include: "*"
 
-destination-service:
-  url: https://destination-configuration.cfapps.us10.hana.ondemand.com
-  clientId:
-  clientSecret: 
-  baseTokenUrl: https://3bb1a5e2trial.authentication.us10.hana.ondemand.com
-
 cache:
   properties:
     expires-after: 1

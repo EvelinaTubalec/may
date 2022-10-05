@@ -1,6 +1,8 @@
 package com.example.may.cloudfoundry.destination.service;
 
 import com.example.may.cloudfoundry.destination.credentials.DestinationCredentials;
+import com.example.may.cloudfoundry.destination.model.Destination;
+import com.example.may.core.web.converter.JsonConverter;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -13,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException.Unauthorized;
 import org.springframework.web.client.RestTemplate;
 
-import static com.example.may.core.mapper.JsonConverter.stringToModel;
 import static com.example.may.core.ouath.constant.OAuth2Constants.BEARER_AUTHORIZATION_TYPE;
 import static com.example.may.core.ouath.constant.OAuth2Constants.HEADER_NAME_AUTHORIZATION;
 import static java.lang.String.format;
@@ -29,6 +30,7 @@ import static java.lang.String.format;
 public class DestinationService {
 
     public static final String NAME_OF_DESTINATION_CONFIGURATION_JSON_OBJECT = "destinationConfiguration";
+    public static final String DESTINATION_CONFIGURATION_PATH = "/destination-configuration/v1/destinations/";
 
     private final DestinationXsuaaTokenService destinationXsuaaTokenService;
     private final DestinationCredentials credentials;
@@ -41,12 +43,12 @@ public class DestinationService {
      * @return properties from destination service.
      */
     @Retryable(value = Unauthorized.class, maxAttempts = 2, backoff = @Backoff(0))
-    public <T> T getProperties(final Class<T> type, final String destinationPath) {
+    public Destination getByName(final String destinationName) {
         log.info("get token");
         try {
             final String accessToken = destinationXsuaaTokenService.getToken();
-            final ResponseEntity<String> response = createRequestAndGetResponse(accessToken, destinationPath);
-            return getPropertiesFromResponse(type, response);
+            final ResponseEntity<String> response = buildRequestAndGetResponse(accessToken, destinationName);
+            return getPropertiesFromResponse(response);
         } catch (Unauthorized ex) {
             destinationXsuaaTokenService.refreshToken();
             throw ex;
@@ -56,11 +58,11 @@ public class DestinationService {
     /**
      * creates url for destination service.
      *
-     * @param destinationPath
+     * @param destinationName
      * @return resource service url.
      */
-    public String getResourceServiceUrl(final String destinationPath) {
-        return credentials.getUrl() + destinationPath;
+    private String getTokenUrl(final String destinationName) {
+        return credentials.getUrl() + DESTINATION_CONFIGURATION_PATH + destinationName;
     }
 
     /**
@@ -69,10 +71,10 @@ public class DestinationService {
      * @param newTokenFromResponse which contains token from Authorization service of destination service.
      * @return response as ResponseEntity.
      */
-    private ResponseEntity<String> createRequestAndGetResponse(
-            final String newTokenFromResponse, final String destinationPath) {
-        final HttpEntity<Void> newRequest = createRequestToResourceServer(newTokenFromResponse);
-        return getResponseFromResourceServer(newRequest, destinationPath);
+    private ResponseEntity<String> buildRequestAndGetResponse(
+            final String newTokenFromResponse, final String destinationName) {
+        final HttpEntity<Void> newRequest = buildRequest(newTokenFromResponse);
+        return sendRequest(newRequest, destinationName);
     }
 
     /**
@@ -81,9 +83,9 @@ public class DestinationService {
      * @param accessToken which contains token from Authorization service of destination service.
      * @return request as HttpEntity.
      */
-    private HttpEntity<Void> createRequestToResourceServer(final String accessToken) {
+    private HttpEntity<Void> buildRequest(final String accessToken) {
         final HttpHeaders headers = new HttpHeaders();
-        headers.add(HEADER_NAME_AUTHORIZATION.getValue(), format("%s %s", BEARER_AUTHORIZATION_TYPE.getValue(), accessToken));
+        headers.add(HEADER_NAME_AUTHORIZATION, format("%s %s", BEARER_AUTHORIZATION_TYPE, accessToken));
         return new HttpEntity<>(headers);
     }
 
@@ -93,21 +95,20 @@ public class DestinationService {
      * @param request to destination service
      * @return response from destination service as ResponseEntity.
      */
-    private ResponseEntity<String> getResponseFromResourceServer(
-            final HttpEntity<Void> request, final String destinationPath) {
-        final String resourceServiceUrl = getResourceServiceUrl(destinationPath);
+    private ResponseEntity<String> sendRequest(
+            final HttpEntity<Void> request, final String destinationName) {
+        final String resourceServiceUrl = getTokenUrl(destinationName);
         return restTemplate.exchange(resourceServiceUrl, HttpMethod.GET, request, String.class);
     }
 
     /**
      * gets needed properties as entity(map response to specific model)
      *
-     * @param type     of Properties class which we want to get from destination service.
      * @param response from destination service.
      * @return entity with properties.
      */
-    private <T> T getPropertiesFromResponse(final Class<T> type, final ResponseEntity<String> response) {
+    private Destination getPropertiesFromResponse(final ResponseEntity<String> response) {
         final String responseBody = response.getBody();
-        return stringToModel(type, responseBody, NAME_OF_DESTINATION_CONFIGURATION_JSON_OBJECT);
+        return JsonConverter.fromJsonString(Destination.class, responseBody);
     }
 }

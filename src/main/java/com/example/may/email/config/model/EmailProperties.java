@@ -25,7 +25,6 @@ public class EmailProperties {
     @JsonProperty("mail.password")
     private String password;
 
-    //@Value("${mail.emailFrom}")
     @JsonProperty("mail.smtp.from")
     private String emailFrom;
 }
