@@ -20,7 +20,7 @@ spring:
     show-sql: true
 
 destination-service:
-  url: https://destination-configuration.cfapps.us10.hana.ondemand.com
+  url:
   clientId:
-  clientSecret: 
-  baseTokenUrl: https://3bb1a5e2trial.authentication.us10.hana.ondemand.com
+  clientSecret:
+  baseTokenUrl: 
