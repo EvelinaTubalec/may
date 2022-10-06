@@ -3,8 +3,8 @@ package com.example.may.rabbitmq.config;
 import lombok.AllArgsConstructor;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.Declarables;
-import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -35,7 +35,7 @@ public class RabbitMQConfig {
     @Bean
     public Declarables createSendEmailSchema() {
         return new Declarables(
-                new FanoutExchange("x.send-email"),
+                new TopicExchange("x.send-email"),
                 new Queue("q.send-email-message"),
                 new Binding(
                         "q.send-email-message", Binding.DestinationType.QUEUE,
