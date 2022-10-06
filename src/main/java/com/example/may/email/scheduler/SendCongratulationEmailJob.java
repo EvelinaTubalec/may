@@ -1,13 +1,11 @@
 package com.example.may.email.scheduler;
 
-import com.example.may.email.config.EmailProperties;
 import com.example.may.email.model.BirthdayUser;
-import com.example.may.email.model.EmailMessage;
 import com.example.may.email.service.EmailService;
+import com.example.may.rabbitmq.service.ProducerService;
 import com.example.may.user.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +21,7 @@ import java.util.stream.Collectors;
 public class SendCongratulationEmailJob {
 
     private final EmailService emailService;
-    private final RabbitTemplate rabbitTemplate;
+    private final ProducerService producerService;
 
     /**
      * Job which every day sends message to RabbitMQ with list of birthday users and email properties for sending
@@ -32,19 +30,8 @@ public class SendCongratulationEmailJob {
      */
     @Scheduled(cron = "0 0 0 * * *")
     private void send() {
-        final EmailMessage message = createMessageToRabbitMQ();
-        rabbitTemplate.convertAndSend("x.send-email", "send-email", message);
-        log.info("send message to RabbitMQ");
-    }
-
-    private EmailMessage createMessageToRabbitMQ() {
-        final EmailProperties emailProperties = emailService.getEmailProperties();
         final List<BirthdayUser> birthdayUsers = getBirthdayUsers();
-
-        final EmailMessage request = new EmailMessage();
-        request.setUsers(birthdayUsers);
-        request.setEmailProperties(emailProperties);
-        return request;
+        producerService.sendCongratulationEmailMessage(birthdayUsers);
     }
 
     private List<BirthdayUser> getBirthdayUsers() {
