@@ -29,7 +29,7 @@ public class Cat {
     @Column
     private String name;
 
-    @Column
+    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
     @ManyToMany(mappedBy = "cats", cascade = CascadeType.MERGE)

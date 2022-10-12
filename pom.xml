@@ -37,6 +37,7 @@
         <java-cfenv-boot.version>2.1.0.RELEASE</java-cfenv-boot.version>
         <spring-retry.version>1.2.5.RELEASE</spring-retry.version>
         <sap.cloud.security.version>2.13.3</sap.cloud.security.version>
+        <jjwt.version>0.9.1</jjwt.version>
     </properties>
 
     <dependencies>
@@ -123,6 +124,11 @@
             <groupId>com.sap.hana.cloud</groupId>
             <artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
             <version>${spring-cloud-cloudfoundry-hana-service-connector.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>${jjwt.version}</version>
         </dependency>
 
 

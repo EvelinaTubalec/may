@@ -1,4 +1,4 @@
-package com.example.may.security;
+package com.example.may.security.cloud.config;
 
 import com.sap.cloud.security.xsuaa.XsuaaServiceConfiguration;
 import com.sap.cloud.security.xsuaa.extractor.IasXsuaaExchangeBroker;
@@ -26,8 +26,9 @@ public class CloudSecurityConfiguration {
     private final XsuaaTokenFlows xsuaaTokenFlows;
 
     @Bean
-    public SecurityFilterChain defaultFilterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+    public SecurityFilterChain cloudFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/actuator/health").permitAll()
                 .antMatchers("/actuator/info").permitAll()
@@ -41,7 +42,7 @@ public class CloudSecurityConfiguration {
     }
 
     private Converter<Jwt, AbstractAuthenticationToken> getJwtAuthenticationConverter() {
-        TokenAuthenticationConverter converter = new TokenAuthenticationConverter(xsuaaServiceConfiguration);
+        final TokenAuthenticationConverter converter = new TokenAuthenticationConverter(xsuaaServiceConfiguration);
         converter.setLocalScopeAsAuthorities(true);
         return converter;
     }
